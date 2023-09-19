@@ -10,6 +10,11 @@ env
 
 whoami
 pwd
+sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+         -e 's|^#baseurl=http://mirror.centos.org/centos|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos|g' \
+         -i.bak \
+         /etc/yum.repos.d/CentOS-*.repo
+yum makecache
 
 yum update -y
 yum install epel-release -y
@@ -34,6 +39,7 @@ sed -e 's!^metalink=!#metalink=!g' \
     -e 's!https\?://download\.fedoraproject\.org/pub/epel!https://mirrors.tuna.tsinghua.edu.cn/epel!g' \
     -e 's!https\?://download\.example/pub/epel!https://mirrors.tuna.tsinghua.edu.cn/epel!g' \
     -i /etc/yum.repos.d/epel*.repo
+yum makecache
 
 crb enable
 
